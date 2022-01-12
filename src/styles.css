@@ -32,3 +32,10 @@ label {
   text-align: center;
 }
 
+.col-acoes {
+  width: 120px;
+}
+
+.col-acoes button:nth-child(1) {
+  margin-right: 5px;
+}

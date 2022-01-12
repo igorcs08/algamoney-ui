@@ -22,7 +22,7 @@
     <div class="col-12">
       <div class="grid">
         <div class="col-12">
-          <p-table [value]="lancamentos" styleClass="p-datatable-gridlines p-datatable-striped" >
+          <p-table [value]="lancamentos" styleClass="p-datatable-gridlines p-datatable-striped">
             <ng-template pTemplate="header">
               <tr>
                 <th>Pessoa</th>
@@ -30,20 +30,35 @@
                 <th class="col-data-header">Vencimento</th>
                 <th class="col-data-header">Pagamento</th>
                 <th class="col-valor-header">Valor</th>
+                <th>Ações</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-lancamento>
               <tr>
                 <td>{{ lancamento.pessoa }}</td>
                 <td>{{ lancamento.descricao }}</td>
-                <td class="col-data-content">{{ lancamento.dataVencimento }}</td>
-                <td class="col-data-content">{{ lancamento.dataPagamento }}</td>
-                <td class="col-valor-content">{{ lancamento.valor }}</td>
+                <td class="col-data-content">
+                  <span> {{ lancamento.dataVencimento }} </span>
+                </td>
+                <td class="col-data-content">
+                  <span> {{ lancamento.dataPagamento }} </span>
+                </td>
+                <td class="col-valor-content" style="text-align: right;">
+                  <span [ngStyle]="{color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'}">
+                    {{ lancamento.valor }}
+                  </span>
+                </td>
+                <td class="col-acoes" style="text-align: center;">
+                  <button pButton icon="pi pi-pencil"></button>
+                  <button class="p-button-danger" pButton icon="pi pi-trash"></button>
+                </td>
               </tr>
             </ng-template>
           </p-table>
         </div>
+      </div>
+      <div class="col-12">
+        <button pButton type="submit" label="Novo Lançamento"></button>
+      </div>
     </div>
   </div>
-
-</div>
