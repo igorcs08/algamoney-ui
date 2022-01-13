@@ -9,6 +9,14 @@ label {
   font-weight: bold;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
@@ -59,11 +67,11 @@ label {
   }
 
   .col-acoes-header {
-    width: 115px;
+    width: 120px;
   }
 
   .col-acoes {
-    width: 115px;
+    width: 120px;
     text-align: center !important;
   }
 

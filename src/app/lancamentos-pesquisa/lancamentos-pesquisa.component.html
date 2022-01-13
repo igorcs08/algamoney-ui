@@ -22,7 +22,7 @@
     <div class="col-12">
       <div class="grid">
         <div class="col-12">
-          <p-table [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]="true">
+          <p-table [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]="true" styleClass="p-datatable-gridlines p-datatable-striped">
             <ng-template pTemplate="header">
               <tr>
                 <th>Pessoa</th>
@@ -57,7 +57,7 @@
                 </td>
                 <td class="col-acoes">
                   <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-                  <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+                  <button pButton class="p-button-danger" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
                 </td>
               </tr>
             </ng-template>
