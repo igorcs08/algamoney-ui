@@ -4,6 +4,9 @@
       <div class="p-col-12">
         <h1>Novo lançamento</h1>
       </div>
+      <div class="p-col-12">
+        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+      </div>
       <div class="p-md-3 p-lg-6 p-fluid">
         <label>Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy"
@@ -11,7 +14,7 @@
           [showIcon]="false"></p-calendar>
       </div>
       <div class="p-md-3 p-lg-6 p-fluid">
-        <label>Recebimento</label>
+        <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
         <p-calendar dateFormat="dd/mm/yy"
           [inline]="false" [readonlyInput]="false"
           [showIcon]="false"></p-calendar>
