@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form autocomplete="off">
     <div class="grid">
       <div class="col-12">
         <h1>Novo lançamento</h1>
@@ -19,8 +19,14 @@
           </div>
         </div>
         <div class="col-9">
-          <label>Descrição</label>
-          <input pInputText type="text">
+          <label>Descrição {{ descricao?.errors | json }}</label>
+          <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+          <p-message *ngIf="descricao.hasError('required') && descricao.dirty" severity="error"
+            text="Informe uma descrição"></p-message>
+
+          <p-message *ngIf="descricao.hasError('minlength') && descricao.dirty" severity="error"
+            text="Mínimo de {{ descricao.errors?.['minlength'].requiredLength }} caracteres. Você digitou apenas {{ descricao.errors?.['minlength'].actualLength }}.">
+          </p-message>
         </div>
         <div class="col-3">
           <label>Valor</label>
