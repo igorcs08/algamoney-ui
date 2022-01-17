@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-message',
   template: `
-  <!-- <p-message *ngIf="temErro()" severity="error" text="{{ text }}"></p-message> -->
+  <p-message *ngIf="temErro()" severity="error" text="{{ text }}"></p-message>
   `,
   styles: [`
   .p-message-error {
