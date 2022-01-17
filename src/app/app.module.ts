@@ -1,3 +1,4 @@
+import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,14 +16,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppComponent } from './app.component';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { MessageComponent } from './message/message.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
-import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
-import { MessageComponent } from './message/message.component';
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
+import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 
 
 
@@ -32,13 +30,10 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LancamentosPesquisaComponent,
     NavbarComponent,
     PessoasPesquisaComponent,
-    LancamentoCadastroComponent,
     PessoaCadastroComponent,
     MessageComponent,
-    LancamentosGridComponent,
     PessoasGridComponent
   ],
   imports: [
@@ -56,7 +51,8 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
     InputMaskModule,
     FormsModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    LancamentosModule
   ],
   providers: [],
   bootstrap: [AppComponent]

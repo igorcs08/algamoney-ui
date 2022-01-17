@@ -21,12 +21,12 @@
         <div class="col-9">
           <label>Descrição</label>
           <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
-
+          <!--
           <app-message [control]="descricao.control" error="required" text="Informe uma descrição"></app-message>
           <app-message [control]="descricao.control" error="minlength"
             text="Mínimo de {{ descricao.errors?.['minlength'].requiredLength }} caracteres. Você digitou apenas {{ descricao.errors?.['minlength'].actualLength }}.">
           </app-message>
-
+          -->
         </div>
         <div class="col-3">
           <label>Valor</label>
