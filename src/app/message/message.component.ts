@@ -15,11 +15,11 @@ import { FormControl } from '@angular/forms';
 })
 export class MessageComponent {
   @Input() error: string = '';
-  @Input() control?: FormControl = new FormControl;
+  @Input() control: FormControl = new FormControl;
   @Input() text: string = '';
 
   temErro(): boolean {
-    return this.control ? this.control.hasError(this.error) && this.control.dirty : true;
+    return this.control.dirty && this.control.hasError(this.error);
   }
 
 }
