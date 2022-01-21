@@ -1,3 +1,4 @@
+import { ErrorHandlerService } from 'src/app/core/service/error-handler.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -19,7 +20,8 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor(
     private pessoaService: PessoaService,
     private messageService: MessageService,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +67,8 @@ export class PessoasPesquisaComponent implements OnInit {
       .then(() => {
         this.grid.reset();
         this.messageService.add({ severity: 'success', detail: 'Pessoa removida com sucesso!' })
-      });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 }
