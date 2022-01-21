@@ -1,7 +1,7 @@
-import { ErrorHandlerService } from 'src/app/core/service/error-handler.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { ErrorHandlerService } from 'src/app/core/service/error-handler.service';
 import { PessoaFiltro } from '../service/pessoa.service';
 import { PessoaService } from './../service/pessoa.service';
 
@@ -67,6 +67,17 @@ export class PessoasPesquisaComponent implements OnInit {
       .then(() => {
         this.grid.reset();
         this.messageService.add({ severity: 'success', detail: 'Pessoa removida com sucesso!' })
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  alterarStatus(pessoa: any) {
+    const novoStatus = !pessoa.ativo;
+    this.pessoaService.alterarStatus(pessoa.codigo, novoStatus)
+      .then(() => {
+        this.grid.reset();
+        const acao = novoStatus ? 'ativada' : 'desativada';
+        this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` })
       })
       .catch(erro => this.errorHandler.handle(erro));
   }

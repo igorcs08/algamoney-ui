@@ -18,8 +18,8 @@
       <div class="grid">
         <div class="col-12">
           <p-table [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true"
-            [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" [responsive]="true"
-            styleClass="p-datatable-gridlines p-datatable-striped" #tabela>
+            [totalRecords]="totalRegistros" [responsive]="true" styleClass="p-datatable-gridlines p-datatable-striped"
+            (onLazyLoad)="aoMudarPagina($event)" #tabela>
             <ng-template pTemplate="header">
               <tr>
                 <th class="col-header">Nome</th>
@@ -45,14 +45,15 @@
                 </td>
                 <td>
                   <span class="p-column-title">Status</span>
-                  <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+                  <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top"
+                    (click)="alterarStatus(pessoa)">
                     {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
                   </a>
                 </td>
                 <td class="col-acoes">
                   <button pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
-                  <button pButton class="p-button-danger" icon="pi pi-trash" pTooltip="Excluir"
-                    tooltipPosition="top" (click)="confirmarExclusao(pessoa)"></button>
+                  <button pButton class="p-button-danger" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                    (click)="confirmarExclusao(pessoa)"></button>
                 </td>
               </tr>
             </ng-template>
