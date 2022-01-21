@@ -51,10 +51,7 @@ export class PessoaService {
 
     return this.http.get(`${this.pessoasUrl}`, { headers })
       .toPromise()
-      .then((response: any) => {
-        const pessoas = response['content'];
-        return pessoas;
-      });
+      .then((response: any) => response['content']);
 
   }
 
