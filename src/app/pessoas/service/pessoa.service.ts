@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export class PessoaFiltro {
   nome: string = '';
@@ -45,13 +46,11 @@ export class PessoaService {
 
   }
 
-  listar(): Promise<any> {
+  listarTodas(): Observable<any> {
     const headers = new HttpHeaders()
       .append('Authorization', this.accessToken);
 
-    return this.http.get(`${this.pessoasUrl}`, { headers })
-      .toPromise()
-      .then((response: any) => response['content']);
+    return this.http.get(`${this.pessoasUrl}`, { headers });
 
   }
 

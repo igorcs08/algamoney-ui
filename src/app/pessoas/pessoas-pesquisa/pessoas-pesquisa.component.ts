@@ -46,9 +46,9 @@ export class PessoasPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  listar() {
-    this.pessoaService.listar()
-      .then(resultado => {
+  listarTodas() {
+    this.pessoaService.listarTodas()
+      .subscribe(resultado => {
         this.pessoas = resultado.pessoas;
       });
   }
