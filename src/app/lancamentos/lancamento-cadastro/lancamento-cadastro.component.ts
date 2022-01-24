@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from './../../categorias/service/categoria.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -12,11 +13,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA' },
   ]
 
-  categorias = [
-    { label: 'Alimentação', value: 1 },
-    { label: 'Transporte', value: 2 },
-    { label: 'Vestuário', value: 3 },
-  ]
+  categorias: any[] = [];
 
   pessoas = [
     { label: 'João da Silva', value: 1 },
@@ -24,9 +21,19 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Maria Abadia', value: 3 },
   ]
 
-  constructor() { }
+  constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
+    this.carregarCategorias();
+  }
+
+  carregarCategorias() {
+    return this.categoriaService.listarTodas().subscribe((categorias: any) => {
+      this.categorias = categorias.map((c: any) => {
+        return { label: c.nome, value: c.codigo }
+      });
+      console.log(categorias);
+    })
   }
 
 }
