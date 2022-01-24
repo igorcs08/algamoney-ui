@@ -1,6 +1,8 @@
+import { Lancamento } from './../../core/model';
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from './../../categorias/service/categoria.service';
 import { PessoaService } from './../../pessoas/service/pessoa.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -15,12 +17,8 @@ export class LancamentoCadastroComponent implements OnInit {
   ]
 
   categorias: any[] = [];
-
-  pessoas = [
-    { label: 'João da Silva', value: 1 },
-    { label: 'Sebastião Souza', value: 2 },
-    { label: 'Maria Abadia', value: 3 },
-  ]
+  pessoas: any[] = [];
+  lancamento = new Lancamento();
 
   constructor(
     private categoriaService: CategoriaService,
@@ -32,12 +30,15 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarPessoas();
   }
 
+  salvar(lancamentoForm: NgForm) {
+    console.log(this.lancamento);
+  }
+
   carregarCategorias() {
     return this.categoriaService.listarTodas().subscribe((categorias: any) => {
       this.categorias = categorias.map((c: any) => {
         return { label: c.nome, value: c.codigo }
       });
-      console.log(categorias);
     })
   }
 
@@ -45,7 +46,7 @@ export class LancamentoCadastroComponent implements OnInit {
     return this.pessoaService.listarTodas().subscribe((pessoas: any) => {
       this.pessoas = pessoas['content'].map((p: any) => {
         return { label: p.nome, value: p.codigo }
-      })
+      });
     })
   }
 
