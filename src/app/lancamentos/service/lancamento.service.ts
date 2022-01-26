@@ -73,4 +73,20 @@ export class LancamentoService {
     return this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers });
 
   }
+
+  atualizar(lancamento: Lancamento, codigo: number): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.accessToken.getToken())
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers });
+  }
+
+  buscaPorCodigo(codigo: number): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.accessToken.getToken());
+
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers });
+  }
+
 }

@@ -2,7 +2,7 @@
   <form #lancamentoForm="ngForm" autocomplete="off" (ngSubmit)="salvar(lancamentoForm)">
     <div class="grid">
       <div class="col-12">
-        <h1>Novo lançamento</h1>
+        <h1>{{ editando ? 'Editar' : 'Novo' }} lançamento</h1>
       </div>
       <div class="col-12">
         <p-selectButton [options]="tipos" name="tiposs" ngModel #tiposs="ngModel" [(ngModel)]="lancamento.tipo" #tipo></p-selectButton>

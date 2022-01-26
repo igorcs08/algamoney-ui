@@ -32,10 +32,27 @@ export class LancamentoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params['codigo']);
+    const codigoLancamento = this.route.snapshot.params['codigo'];
+
+    if(codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
 
     this.carregarCategorias();
     this.carregarPessoas();
+  }
+
+  get editando() {
+    return Boolean(this.lancamento.codigo);
+  }
+
+  carregarLancamento(codigo: number) {
+    this.lancamentoService.buscaPorCodigo(codigo)
+    .subscribe(lancamento => {
+      console.log(lancamento);
+      this.converterStringsParaDatas([lancamento]);
+      this.lancamento = lancamento;
+    });
   }
 
   salvar(lancamentoForm: NgForm) {
@@ -65,5 +82,17 @@ export class LancamentoCadastroComponent implements OnInit {
       });
     })
   }
+
+  private converterStringsParaDatas(lancamentos: any[]) {
+    for (const lancamento of lancamentos) {
+      lancamento.dataVencimento = new Date(lancamento.dataVencimento);
+
+      if (lancamento.dataPagamento) {
+        lancamento.dataPagamento = new Date(lancamento.dataPagamento)
+      }
+
+    }
+  }
+
 
 }
