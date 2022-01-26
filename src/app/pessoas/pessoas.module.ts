@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -40,7 +41,8 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     FormsModule,
     MessageModule,
     MessagesModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     PessoasPesquisaComponent,

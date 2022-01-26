@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import localePt from '@angular/common/locales/pt';
 import { ErrorHandlerService } from './service/error-handler.service';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -12,7 +13,8 @@ registerLocaleData(localePt, 'pt-BR');
     NavbarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     NavbarComponent

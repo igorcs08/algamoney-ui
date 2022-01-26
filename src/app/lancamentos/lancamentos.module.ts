@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -33,7 +34,8 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
     SelectButtonModule,
     DropdownModule,
     InputNumberModule,
-    SharedModule
+    SharedModule,
+    RouterModule
 
   ],
   exports: [
