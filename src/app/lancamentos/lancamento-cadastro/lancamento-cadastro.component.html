@@ -5,7 +5,7 @@
         <h1>Novo lançamento</h1>
       </div>
       <div class="col-12">
-        <p-selectButton [options]="tipos" [(ngModel)]="lancamento.tipo" #tipo></p-selectButton>
+        <p-selectButton [options]="tipos" name="tiposs" ngModel #tiposs="ngModel" [(ngModel)]="lancamento.tipo" #tipo></p-selectButton>
       </div>
       <div class="grid p-fluid">
         <div class="grid col-6">
