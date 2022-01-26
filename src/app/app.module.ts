@@ -1,3 +1,5 @@
+import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +16,9 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterModule, Routes } from '@angular/router';
+import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
+import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 
 
 
@@ -23,6 +28,15 @@ registerLocaleData(localePt);
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
+
+const routes: Routes = [
+  { path: 'lancamentos', component: LancamentosPesquisaComponent },
+  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
+  { path: 'pessoas', component: PessoasPesquisaComponent },
+  { path: 'pessoas/novo', component: PessoaCadastroComponent }
+
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       }
     }),
+    RouterModule.forRoot(routes),
 
   ],
   providers: [
