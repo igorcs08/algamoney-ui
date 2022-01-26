@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Pessoa } from 'src/app/core/model';
 
 export class PessoaFiltro {
   nome: string = '';
@@ -68,6 +69,16 @@ export class PessoaService {
       .append('Content-Type', 'application/json');
 
     return this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }).toPromise();
+  }
+
+  adicionar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.accessToken)
+      .append('Content-Type', 'application/json');
+
+    console.log(pessoa);
+
+    return this.http.post<Pessoa>(this.pessoasUrl, pessoa, { headers });
   }
 
 
