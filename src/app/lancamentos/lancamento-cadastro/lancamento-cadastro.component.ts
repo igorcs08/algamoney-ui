@@ -74,8 +74,6 @@ export class LancamentoCadastroComponent implements OnInit {
           severity: 'success',
           detail: 'Lançamento adicionado com sucesso!'
         });
-        // lancamentoForm.reset();
-        // this.lancamento = new Lancamento();
         this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
       })
   }
