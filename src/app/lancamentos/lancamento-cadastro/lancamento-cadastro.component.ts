@@ -34,7 +34,7 @@ export class LancamentoCadastroComponent implements OnInit {
   ngOnInit(): void {
     const codigoLancamento = this.route.snapshot.params['codigo'];
 
-    if(codigoLancamento) {
+    if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
     }
 
@@ -48,14 +48,22 @@ export class LancamentoCadastroComponent implements OnInit {
 
   carregarLancamento(codigo: number) {
     this.lancamentoService.buscaPorCodigo(codigo)
-    .subscribe(lancamento => {
-      console.log(lancamento);
-      this.converterStringsParaDatas([lancamento]);
-      this.lancamento = lancamento;
-    });
+      .subscribe(lancamento => {
+        console.log(lancamento);
+        this.converterStringsParaDatas([lancamento]);
+        this.lancamento = lancamento;
+      });
   }
 
-  salvar(lancamentoForm: NgForm) {
+  salvar(form: NgForm) {
+    if (this.editando) {
+      this.atualizarLancamento(form)
+    } else {
+      this.adicionaLancamento(form);
+    }
+  }
+
+  adicionaLancamento(lancamentoForm: NgForm) {
     this.lancamentoService.adicionar(this.lancamento)
       .subscribe(() => {
         this.messageService.add({
@@ -64,6 +72,18 @@ export class LancamentoCadastroComponent implements OnInit {
         });
         lancamentoForm.reset();
         this.lancamento = new Lancamento();
+      })
+  }
+
+  atualizarLancamento(lancamentoForm: NgForm) {
+    this.lancamentoService.atualizar(this.lancamento)
+      .subscribe(lancamento => {
+        this.lancamento = lancamento;
+
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Lançamento alterado com sucesso!'
+        });
       })
   }
 

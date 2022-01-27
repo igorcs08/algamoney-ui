@@ -74,12 +74,12 @@ export class LancamentoService {
 
   }
 
-  atualizar(lancamento: Lancamento, codigo: number): Observable<Lancamento> {
+  atualizar(lancamento: Lancamento): Observable<Lancamento> {
     const headers = new HttpHeaders()
       .append('Authorization', this.accessToken.getToken())
       .append('Content-Type', 'application/json');
 
-    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers });
+    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers });
   }
 
   buscaPorCodigo(codigo: number): Observable<Lancamento> {
