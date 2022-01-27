@@ -1,11 +1,12 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
-
 import localePt from '@angular/common/locales/pt';
-import { ErrorHandlerService } from './service/error-handler.service';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { ErrorHandlerService } from './service/error-handler.service';
+
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -24,7 +25,8 @@ registerLocaleData(localePt, 'pt-BR');
   providers: [
     DatePipe,
     {provide: LOCALE_ID, useValue: 'pt-BR'},
-    ErrorHandlerService
+    ErrorHandlerService,
+    Title
   ]
 })
 export class CoreModule { }
