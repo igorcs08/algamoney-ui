@@ -38,9 +38,6 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
     RouterModule
 
   ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
-  ]
+  exports: []
 })
 export class LancamentosModule { }

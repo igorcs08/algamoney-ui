@@ -5,12 +5,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import localePt from '@angular/common/locales/pt';
 import { ErrorHandlerService } from './service/error-handler.service';
 import { RouterModule } from '@angular/router';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     CommonModule,
