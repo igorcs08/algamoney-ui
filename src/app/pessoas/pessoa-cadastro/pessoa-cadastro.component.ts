@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { timeStamp } from 'console';
 import { MessageService } from 'primeng/api';
 import { Pessoa } from 'src/app/core/model';
 import { PessoaService } from './../service/pessoa.service';
@@ -38,10 +37,10 @@ export class PessoaCadastroComponent implements OnInit {
 
   carregarPessoa(codigo: number) {
     this.pessoaService.buscarPorCodigo(codigo)
-    .subscribe(pessoa => {
-      this.pessoa = pessoa;
-      this.atualizarTituloEdicao();
-    });
+      .subscribe(pessoa => {
+        this.pessoa = pessoa;
+        this.atualizarTituloEdicao();
+      });
   }
 
   salvar(form: NgForm) {
@@ -54,26 +53,25 @@ export class PessoaCadastroComponent implements OnInit {
 
   adicionaPessoa(pessoaForm: NgForm) {
     this.pessoaService.adicionar(this.pessoa)
-      .subscribe(() => {
+      .subscribe(pessoaAdicionada => {
         this.messageService.add({
           severity: 'success',
-          detail: 'Pessoa adicionanda com sucesso!'
+          detail: 'Pessoa adicionada com sucesso!'
         });
-        pessoaForm.reset();
-        this.pessoa = new Pessoa();
+        this.router.navigate(['/pessoas', pessoaAdicionada.codigo]);
       })
   }
 
   atualizarPessoa(pessoaForm: NgForm) {
     this.pessoaService.atualizar(this.pessoa)
-    .subscribe(pessoa => {
-      this.pessoa = pessoa;
-      this.messageService.add( {
-        severity: 'success',
-        detail: 'Dados alterados com sucesso!'
-      });
-      this.atualizarTituloEdicao();
-    })
+      .subscribe(pessoa => {
+        this.pessoa = pessoa;
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Dados alterados com sucesso!'
+        });
+        this.atualizarTituloEdicao();
+      })
   }
 
   novo(form: NgForm) {
