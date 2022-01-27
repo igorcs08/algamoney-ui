@@ -82,5 +82,19 @@ export class PessoaService {
     return this.http.post<Pessoa>(this.pessoasUrl, pessoa, { headers });
   }
 
+  atualizar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.accessToken.getToken())
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, pessoa, { headers });
+  }
+
+  buscarPorCodigo(codigo: number): Observable<Pessoa> {
+    const headers = new HttpHeaders()
+    .append('Authorization', this.accessToken.getToken());
+
+    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`, { headers });
+  }
 
 }
