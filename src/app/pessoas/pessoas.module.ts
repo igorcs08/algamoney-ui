@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -42,6 +42,7 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
     MessageModule,
     MessagesModule,
     SharedModule,
+    ReactiveFormsModule,
     PessoasRoutingModule
   ],
   exports: []

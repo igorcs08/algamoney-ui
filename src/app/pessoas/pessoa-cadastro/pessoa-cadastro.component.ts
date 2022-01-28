@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Pessoa } from 'src/app/core/model';
+import { ErrorHandlerService } from 'src/app/core/service/error-handler.service';
 import { PessoaService } from './../service/pessoa.service';
 
 @Component({
@@ -13,17 +14,23 @@ import { PessoaService } from './../service/pessoa.service';
 })
 export class PessoaCadastroComponent implements OnInit {
 
-  pessoa = new Pessoa();
+  //pessoa = new Pessoa();
+
+  formPessoa!: FormGroup;
 
   constructor(
     private pessoaService: PessoaService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
-    private title: Title
+    private title: Title,
+    private errorHandler: ErrorHandlerService,
+    private formBuilder: FormBuilder
+
   ) { }
 
   ngOnInit(): void {
+    this.configurarFormulario();
     this.title.setTitle('Novo cadastro de pessoa');
     const codigoPessoa = this.route.snapshot.params['codigo'];
 
@@ -31,28 +38,45 @@ export class PessoaCadastroComponent implements OnInit {
 
   }
 
+  configurarFormulario() {
+    this.formPessoa = this.formBuilder.group({
+      codigo: [],
+      nome: [null, Validators.required],
+      ativo: [true],
+      endereco: this.formBuilder.group({
+        logradouro: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null],
+        bairro: [null, Validators.required],
+        cep: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required]
+      })
+    })
+  }
+
   get editando() {
-    return Boolean(this.pessoa.codigo);
+    return Boolean(this.formPessoa.get('codigo')!.value);
   }
 
   carregarPessoa(codigo: number) {
     this.pessoaService.buscarPorCodigo(codigo)
       .subscribe(pessoa => {
-        this.pessoa = pessoa;
+        this.formPessoa.patchValue(pessoa);
         this.atualizarTituloEdicao();
       });
   }
 
-  salvar(form: NgForm) {
+  salvar() {
     if (this.editando) {
-      this.atualizarPessoa(form);
+      this.atualizarPessoa();
     } else {
-      this.adicionaPessoa(form);
+      this.adicionaPessoa();
     }
   }
 
-  adicionaPessoa(pessoaForm: NgForm) {
-    this.pessoaService.adicionar(this.pessoa)
+  adicionaPessoa() {
+    this.pessoaService.adicionar(this.formPessoa.value)
       .subscribe(pessoaAdicionada => {
         this.messageService.add({
           severity: 'success',
@@ -62,10 +86,10 @@ export class PessoaCadastroComponent implements OnInit {
       })
   }
 
-  atualizarPessoa(pessoaForm: NgForm) {
-    this.pessoaService.atualizar(this.pessoa)
+  atualizarPessoa() {
+    this.pessoaService.atualizar(this.formPessoa.value)
       .subscribe(pessoa => {
-        this.pessoa = pessoa;
+        this.formPessoa.patchValue(pessoa);
         this.messageService.add({
           severity: 'success',
           detail: 'Dados alterados com sucesso!'
@@ -74,16 +98,13 @@ export class PessoaCadastroComponent implements OnInit {
       })
   }
 
-  novo(form: NgForm) {
-    form.reset();
-    setTimeout(() => {
-      this.pessoa = new Pessoa();
-    }, 1);
+  novo() {
+    this.formPessoa.reset(new Pessoa);
     this.router.navigate(['/pessoas/novo']);
   }
 
   atualizarTituloEdicao() {
-    this.title.setTitle(`Edição dos dados de: ${this.pessoa.nome}`);
+    this.title.setTitle(`Edição dos dados de: ${this.formPessoa.get('nome')!.value}`);
   }
 
 }
