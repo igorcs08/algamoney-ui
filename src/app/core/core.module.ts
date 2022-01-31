@@ -3,6 +3,7 @@ import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { AuthService } from './../seguranca/auth.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { ErrorHandlerService } from './service/error-handler.service';
@@ -24,9 +25,10 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   providers: [
     DatePipe,
-    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     ErrorHandlerService,
-    Title
+    Title,
+    AuthService
   ]
 })
 export class CoreModule { }
