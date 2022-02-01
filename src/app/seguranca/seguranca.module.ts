@@ -1,24 +1,47 @@
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SegurancaRoutingModule } from './seguranca-routing.module';
-import { InputTextModule } from 'primeng/inputtext';
+import { AuthGuard } from './auth.guard';
+import { MoneyHttpInterceptor } from './money-http-interceptor';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { FormsModule } from '@angular/forms';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { environment } from 'src/environments/environment';
+import { AuthorizedComponent } from './authorized/authorized.component';
+import { SegurancaRoutingModule } from './seguranca-routing.module';
 
+export function tokenGetter(): string {
+  return localStorage.getItem('token')!;
+}
 
 
 @NgModule({
   declarations: [
-    LoginFormComponent
+    AuthorizedComponent
   ],
   imports: [
     CommonModule,
     InputTextModule,
     ButtonModule,
     FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedRoutes
+      }
+    }),
     SegurancaRoutingModule
+  ],
+  providers: [
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MoneyHttpInterceptor,
+      multi: true
+    },
+    AuthGuard
   ]
 })
 export class SegurancaModule { }

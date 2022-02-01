@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Auth } from 'src/app/core/auth';
 import { Pessoa } from 'src/app/core/model';
 
 export class PessoaFiltro {
@@ -19,13 +18,10 @@ export class PessoaFiltro {
 export class PessoaService {
 
   pessoasUrl = 'http://localhost:8080/pessoas'
-  accessToken = new Auth();
 
   constructor(private http: HttpClient) { }
 
   pesquisar(filtro: PessoaFiltro): Promise<any> {
-    const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
 
     let params = new HttpParams();
     params = params.set('page', filtro.pagina.toString());
@@ -35,7 +31,7 @@ export class PessoaService {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.http.get(`${this.pessoasUrl}`, { headers, params })
+    return this.http.get(`${this.pessoasUrl}`, { params })
       .toPromise()
       .then((response: any) => {
         const pessoas = response['content'];
@@ -49,24 +45,19 @@ export class PessoaService {
   }
 
   listarTodas(): Observable<any> {
-    const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
 
-    return this.http.get(`${this.pessoasUrl}`, { headers });
+    return this.http.get(`${this.pessoasUrl}`);
 
   }
 
   excluir(codigo: number): Promise<void> {
-    const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
 
-    return this.http.delete<void>(`${this.pessoasUrl}/${codigo}`, { headers })
+    return this.http.delete<void>(`${this.pessoasUrl}/${codigo}`)
       .toPromise();
   }
 
   alterarStatus(codigo: number, ativo: boolean): Promise<void> {
     const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken())
       .append('Content-Type', 'application/json');
 
     return this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }).toPromise();
@@ -74,7 +65,6 @@ export class PessoaService {
 
   adicionar(pessoa: Pessoa): Observable<Pessoa> {
     const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken())
       .append('Content-Type', 'application/json');
 
     console.log(pessoa);
@@ -84,17 +74,13 @@ export class PessoaService {
 
   atualizar(pessoa: Pessoa): Observable<Pessoa> {
     const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken())
       .append('Content-Type', 'application/json');
 
     return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, pessoa, { headers });
   }
 
   buscarPorCodigo(codigo: number): Observable<Pessoa> {
-    const headers = new HttpHeaders()
-    .append('Authorization', this.accessToken.getToken());
-
-    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`, { headers });
+    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`);
   }
 
 }

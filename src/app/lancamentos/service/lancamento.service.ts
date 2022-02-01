@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Auth } from 'src/app/core/auth';
+import { environment } from 'src/environments/environment';
 import { Lancamento } from './../../core/model';
 
 export class LancamentoFiltro {
@@ -18,15 +18,15 @@ export class LancamentoFiltro {
 })
 export class LancamentoService {
 
-  lancamentosUrl = 'http://localhost:8080/lancamentos';
-  accessToken = new Auth();
+  lancamentosUrl = environment.apiUrl + '/lancamentos';
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
 
     const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
 
     let params = new HttpParams();
 
@@ -58,15 +58,13 @@ export class LancamentoService {
   }
 
   excluir(codigo: number): Promise<void> {
-    const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
 
-    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`)
       .toPromise();
   }
 
   adicionar(lancamento: Lancamento): Observable<Lancamento> {
-    const headers = new HttpHeaders().append('Authorization', this.accessToken.getToken()).append('Content-Type', 'application/json');
+    const headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     console.log(lancamento);
 
@@ -76,17 +74,14 @@ export class LancamentoService {
 
   atualizar(lancamento: Lancamento): Observable<Lancamento> {
     const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken())
       .append('Content-Type', 'application/json');
 
     return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers });
   }
 
   buscaPorCodigo(codigo: number): Observable<Lancamento> {
-    const headers = new HttpHeaders()
-      .append('Authorization', this.accessToken.getToken());
 
-    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers });
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`);
   }
 
 }
