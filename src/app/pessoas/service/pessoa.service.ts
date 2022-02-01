@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pessoa } from 'src/app/core/model';
+import { environment } from 'src/environments/environment';
 
 export class PessoaFiltro {
   nome: string = '';
@@ -17,7 +18,7 @@ export class PessoaFiltro {
 })
 export class PessoaService {
 
-  pessoasUrl = 'http://localhost:8080/pessoas'
+  pessoasUrl = environment.apiUrl + '/pessoas';
 
   constructor(private http: HttpClient) { }
 
