@@ -1,4 +1,3 @@
-import { SegurancaModule } from './seguranca/seguranca.module';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
@@ -13,9 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { LancamentoService } from './lancamentos/service/lancamento.service';
-import { PessoasModule } from './pessoas/pessoas.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(localePt);
 
@@ -30,8 +28,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    LancamentosModule,
-    PessoasModule,
     CoreModule,
     HttpClientModule,
     ToastModule,
