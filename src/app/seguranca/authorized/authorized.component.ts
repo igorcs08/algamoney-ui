@@ -1,6 +1,6 @@
-import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'app-authorized',
@@ -18,7 +18,13 @@ export class AuthorizedComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: any) => {
       if (params.code) {
-        this.authService.obterNovoAccessTokenComCode(params.code, params.state);
+        this.authService.obterNovoAccessTokenComCode(params.code, params.state)
+          .then(() => {
+            this.route.navigate(['/'])
+          })
+          .catch((e: any) => {
+            console.error('Erro no callback');
+          });
       } else {
         this.route.navigate(['/']);
       }

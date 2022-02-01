@@ -23,4 +23,8 @@ export class NavbarComponent implements OnInit {
     return this.authService.temPermissao(permissao);
   }
 
+  logout() {
+    this.authService.logout();
+  }
+
 }

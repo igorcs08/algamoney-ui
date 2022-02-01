@@ -55,6 +55,12 @@ export class AuthService {
     window.location.href = this.oauthAuthorizeUrl + '?' + params.join('&');
   }
 
+  logout() {
+    this.limparAccessToken();
+    localStorage.clear();
+    window.location.href = environment.apiUrl + '/logout?returnTo=' + environment.logoutRedirectToUrl;
+  }
+
   obterNovoAccessTokenComCode(code: string, state: string): Promise<any> {
     const stateSalvo = localStorage.getItem('state');
 

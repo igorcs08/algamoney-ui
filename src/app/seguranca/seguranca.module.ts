@@ -1,5 +1,3 @@
-import { AuthGuard } from './auth.guard';
-import { MoneyHttpInterceptor } from './money-http-interceptor';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -8,7 +6,9 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { environment } from 'src/environments/environment';
+import { AuthGuard } from './auth.guard';
 import { AuthorizedComponent } from './authorized/authorized.component';
+import { MoneyHttpInterceptor } from './money-http-interceptor';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
 
 export function tokenGetter(): string {
