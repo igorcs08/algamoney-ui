@@ -58,13 +58,17 @@ export class LancamentoService {
   }
 
   excluir(codigo: number): Promise<void> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`)
+    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers })
       .toPromise();
   }
 
   adicionar(lancamento: Lancamento): Observable<Lancamento> {
-    const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Content-Type', 'application/json');
 
     console.log(lancamento);
 
@@ -74,14 +78,17 @@ export class LancamentoService {
 
   atualizar(lancamento: Lancamento): Observable<Lancamento> {
     const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
       .append('Content-Type', 'application/json');
 
     return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers });
   }
 
   buscaPorCodigo(codigo: number): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`);
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers });
   }
 
 }
