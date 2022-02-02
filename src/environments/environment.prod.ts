@@ -3,6 +3,6 @@ export const environment = {
   apiUrl: 'https://algamoney-bend.herokuapp.com/',
   tokenAllowedDomains: [ /localhost:8080/ ],
   tokenDisallowedRoutes: [/\/outh2\/token/],
-  oauthCallbackUrl: 'https://oidcdebugger.com/debug',
-  logoutRedirectToUrl: 'http://local-algamoney.com:8000'
+  oauthCallbackUrl: 'https://algamoney-ui-gamma.vercel.app/authorized',
+  logoutRedirectToUrl: 'https://algamoney-ui-gamma.vercel.app'
 };
